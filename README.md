@@ -1,25 +1,26 @@
 # Compiler_Project
 
 
-#Rust vs C Language Comparison
+* Rust vs C Language Comparison
+  - 
 
 
-#Guides for Compiler/Interpreter Design
--Crafting Interpreters: https://timothya.com/pdfs/crafting-interpreters.pdf
+* Guides for Compiler/Interpreter Design
+  - Crafting Interpreters: https://timothya.com/pdfs/crafting-interpreters.pdf
 
 
-#General Information and Theoretically Oriented Textbooks
--Computer Systems: A Programmers Perspective https://annas-archive.org/md5/ebb9004fe72f0da390bdef45026b2786
+*General Information and Theoretically Oriented Textbooks
+ -Computer Systems: A Programmers Perspective https://annas-archive.org/md5/ebb9004fe72f0da390bdef45026b2786
 
 
-#Decisions to make for language design
+*Decisions to make for language design
  -Static vs dynamic typing
  -Garbage collection vs no garbage collection
  -Language Inspiration (What languages do we want to use for inspiration?)
 
 
 
-#First Steps:
+*First Steps:
 
 1) Choose a language (rust vs C)
 2) Choose an initial tutorial
