@@ -27,32 +27,32 @@ Static Analysis on Syntax Tree
     2) Type Checking, statically typed languages are type checked here, this book however implements a dynamically typed language
 
 
-After Analysis is complete the information can be appended to the syntax tree as attributes on the nodes. Alternatively it can be stored in a symbol table, where identifiers are linked to their data
+After analysis is complete the information can be appended to the syntax tree as attributes on the nodes. Alternatively it can be stored in a symbol table, where identifiers are linked to their data
 
 
-Intermediate Representations
+### Intermediate Representations
 
 The "front end" of a compiler is language specific, it (usually) only can process one language. The "back end" is concerned with the final architecture the program runs on.
 
 In the middle is the intermediate representation. By having our front end generate an established intermediate representation, we can feed it to an existing backend compiler for whatever architecture we want to target
 
 
-Optimization
+### Optimization
 
 Optimization is done within the intermediate representation because it contains all of the necessary behavior in an easy to manipulate form. Optimization is a very, very deep rabbithole that this book doesn't really get into. Additionally, compile time optimization is more difficult for dynamically typed languages
 
 
-Code Generation
+### Code Generation
 
 Backend side of the compiler process. We don't want to bother generating code for each instruction et, so instead we work with virtual machine code, often known as bytecode.
 
 
-Virtual Machine
+### Virtual Machine
 
 Once you have bytecode, you can either treat it as another layer of Intermediate representation and convert it to native code for your architectures of choice, or you can write a Virtual machine that emulates your virtual architecture during runtime. This is slower than native code, because every line of bytecode is simulated at runtime each time it executes
 
 
-Runtime
+### Runtime
 
 Once an executable is generated, we need to provide services that handle additional concerns at runtime, such as garbage collecting and instanceof checking. The runtime often lives in the VM for languages that run on virtual machines.
 
