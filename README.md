@@ -64,6 +64,7 @@ A scanner (or lexer) takes in the linear stream of characters and chunks them to
 
 ```mermaid
 graph TD
+
     A[Source Code] --> B[Scanning]
     B --> C{Character}
     C --> |Whitespace| D[Ignore]
