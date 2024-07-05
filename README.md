@@ -30,3 +30,31 @@ using an automated test framework as we develop?
 4) Following a rust compiler tutorial (Judah and Jaanhvi)
 
  
+```mermaid
+graph TD
+    A[Source Code] --> B[Scanning]
+    B --> C[Tokens]
+    C --> D[Parsing]
+    D --> E[Syntax Tree]
+    E --> F[Analysis]
+    F --> G[Intermediate Representation]
+    G --> H[Optimizing]
+    G --> I[Transpiling]
+    H --> J[Code Generation]
+    I --> J
+    J --> K[Bytecode]
+    J --> L[Machine Code]
+    K --> M[Virtual Machine]
+    L --> N[Executable]
+
+    subgraph Compiler Stages
+        B
+        C
+        D
+        E
+        F
+        G
+        H
+        I
+        J
+    end
