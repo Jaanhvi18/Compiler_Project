@@ -82,34 +82,4 @@ graph TD
     N --> |Digit| F
     N --> |Non-Digit| O[End of Number]
     O --> P[Number Token]
-
-    subgraph Examples
-        A1[Source Code: int main() { return 0; }]
-        A1 --> B1
-        B1[Scanning] --> C1{Character}
-        C1 --> |'i'| D1[Start of Identifier]
-        D1 --> |'n'| D2[Identifier: in]
-        D2 --> |'t'| D3[Identifier: int]
-        D3 --> |Whitespace| E1[End of Identifier]
-        E1 --> |Check Keyword| F1[Keyword Token: int]
-        C1 --> |'m'| G1[Start of Identifier]
-        G1 --> |'a'| G2[Identifier: ma]
-        G2 --> |'i'| G3[Identifier: mai]
-        G3 --> |'n'| G4[Identifier: main]
-        G4 --> |'('| H1[End of Identifier]
-        H1 --> |Check Keyword| I1[Identifier Token: main]
-        C1 --> |'('| J1[Operator Token: (]
-        C1 --> |')'| K1[Operator Token: )]
-        C1 --> |'{'| L1[Operator Token: {]
-        C1 --> |'r'| M1[Start of Identifier]
-        M1 --> |'e'| M2[Identifier: re]
-        M2 --> |'t'| M3[Identifier: ret]
-        M3 --> |'u'| M4[Identifier: retu]
-        M4 --> |'r'| M5[Identifier: retur]
-        M5 --> |'n'| M6[Identifier: return]
-        M6 --> |Whitespace| N1[End of Identifier]
-        N1 --> |Check Keyword| O1[Keyword Token: return]
-        C1 --> |'0'| P1[Number Token: 0]
-        C1 --> |';'| Q1[Operator Token: ;]
-    end
 ```
