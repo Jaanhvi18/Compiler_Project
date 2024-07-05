@@ -1,11 +1,6 @@
 # Compiler_Project
 
-* Comparing C++ and Rust
-
-
-* Rust Language Basics
-  - FreeCodeCamp Rust Basics: https://www.youtube.com/watch?v=MsocPEZBd-M
-  - Rustlings Rust Exercises: https://github.com/rust-lang/rustlings
+We will be proceeding with C++
 
 * Guides for Compiler/Interpreter Design
   - Crafting Interpreters: https://timothya.com/pdfs/crafting-interpreters.pdf
