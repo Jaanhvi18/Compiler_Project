@@ -1,14 +1,13 @@
 # Intro and Plan
-This Sub-directory contains my attempt to follow along with the "Crafting Interpreters" book in C++. This document additionally any external notes and documentation on the project not conveyed through code/comments
+This Sub-directory contains my (judah) attempt to follow along with the "Crafting Interpreters" book in C++. This document additionally any external notes and documentation on the project not conveyed through code/comments
 
-The book is divided into a walkthrough of a java and a C based implementation. Author notes in 1.3 that most major compilers (GCC, LLVM, Javascript VMs) are written in C++, an OOP language, and thus I'm going to approach the tutorial by following along with the java implementation in C++, and then seeing what additionally I can adapt from the C implementation
-
-I'll first follow the tree-walk interpretation method described in the Java section, and then I'll later implement the bytecode compilation method used in the c section
+The book is divided into a walkthrough of a java and a C based implementation. Author notes in 1.3 that most major compilers (GCC, LLVM, Javascript VMs) are written in C++, an OOP language, The java approach taken by the texbook is a tree-walk interpreter, while the C implementation is a byte code compiler.
 
 
-## Chapter 2
 
-# Parts of a Language 
+# Chapter 2
+
+## Parts of a Language 
 
 Source Code (string) -> Tokens 
     - Lexing/scanning
@@ -57,7 +56,7 @@ Runtime
 
 Once an executable is generated, we need to provide services that handle additional concerns at runtime, such as garbage collecting and instanceof checking. The runtime often lives in the VM for languages that run on virtual machines.
 
-# Alternate Routes
+## Alternate Routes
 
 
 Single Pass Compilers: Compilers that generate code without intermediate representations. This leads to heavily restricted language designs. C and Pascal were designed in the time of strict memory limitations, meaning the compiler did not have the privilege of generating IR's. Lead to features such as forward decleration of functions
@@ -73,7 +72,7 @@ Just-in-Time Compilation: High Performance, high skill. When the program is load
 
 
 
-# Compilers and Interpreters
+## Compilers and Interpreters
 
 Compiling: An implementation technique where a source language is translated into another (often lower-level) form. When we generate machine code or byte code we are classically compiling. Compiling to C or Javascript are examples of transpiling. Compilers do not execute the outputed code
 
@@ -86,14 +85,14 @@ Interpreters: Takes source code as input and immediately executes it
 
 
 
-##  Chapter 3 : The Lox Language
+#  Chapter 3 : The Lox Language
 
 the language described in the textbook is in the C family. Key features include that it is dynamically typed and that it provides automatic memory management.
 
 The main methods of memory management are reference counting and tracing garbage collection. Most modern systems use a combination of both, but lean heavily towards the garbage collection side.
 
 
-# Data Types
+## Data Types
 
 - We implement booleans as their own data types, rather than repurposing an existing type
 
@@ -103,14 +102,14 @@ The main methods of memory management are reference counting and tracing garbage
 
 -A null value named nil. Many good arguments to not include it in statically typed langauges, but has advantages for dynamically typed
 
-# Expressions
+## Expressions
 
 - We support all the basic arithmetic divisions +, -, *, /, %
 - additional support for comparison and equality (no type conversion)
 - logical operators !, and, or
 
 
-# Statements
+## Statements
 
 While expressions produce values, statements produce effects
 
@@ -119,21 +118,21 @@ We implement the print statement as a language feature rather than a function be
 Expressions that end with semicolons are considered statements
 
 
-# Variables
+## Variables
 
 Variables are declared dynamically with var, omitting the initializer defaults the value to nil.
 
-# Control Flow
+## Control Flow
 
 We implement only If/else, while, and classic for loops
  - It would be fun to include match and for-each loops
 
-# Functions
+## Functions
 
  Function Structures are fairly classically designed. However we do treat them as first class and allow nested functions. This combination creates some complication when exiting and returning from scope, meaning we can't just rely on the stack
 
 
-# Classes
+## Classes
 
  The language provides limited Object Oriented Support.
 
@@ -147,9 +146,14 @@ We implement only If/else, while, and classic for loops
  Lox takes the class based approach, and additionally treats classes as first class. Static/non-static memory are differentiated with Class.data vs this.data. We've even got inheritance!
 
 
- # The Standard Library
+ ## The Standard Library
 
  Lox has no standard functionality beyond print and clock. Literally nothing. That gives us a lot of room to play.
+
+
+ # Tree-Walk Interpreter
+
+
 
 
 
