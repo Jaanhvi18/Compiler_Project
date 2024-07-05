@@ -1,5 +1,5 @@
 # Intro and Plan
-This Sub-directory contains my (judah) attempt to follow along with the "Crafting Interpreters" book in C++. This document additionally any external notes and documentation on the project not conveyed through code/comments
+This Sub-directory contains my (judah) first attempt to follow along with the "Crafting Interpreters" book in C++. This document additionally any external notes and documentation on the project not conveyed through code/comments
 
 The book is divided into a walkthrough of a java and a C based implementation. Author notes in 1.3 that most major compilers (GCC, LLVM, Javascript VMs) are written in C++, an OOP language, The java approach taken by the texbook is a tree-walk interpreter, while the C implementation is a byte code compiler.
 
@@ -59,7 +59,7 @@ Once an executable is generated, we need to provide services that handle additio
 ## Alternate Routes
 
 
-Single Pass Compilers: Compilers that generate code without intermediate representations. This leads to heavily restricted language designs. C and Pascal were designed in the time of strict memory limitations, meaning the compiler did not have the privilege of generating IR's. Lead to features such as forward decleration of functions
+Single Pass Compilers: Compilers that generate code without intermediate representations. This leads to heavily restricted language designs. C and Pascal were designed in the time of strict memory limitations, meaning the compiler did not have the privilege of generating IR's. Led to features such as forward decleration of functions
 
 
 Tree-walk Interpreters: Method that executes the code right after parsing it to an AST. Interpreter parses the syntax tree one branch/leaf at a time and evaluates a node as it goes. Commonly used for student projects and little languages, not general-purpose languages that need to be fast
@@ -98,9 +98,9 @@ The main methods of memory management are reference counting and tracing garbage
 
 - The only number type we support are the classic double-precision floating points
 
--We implement Strings, unclear how they are represented, as there is no reference to char types
+- We implement Strings, unclear how they are represented, as there is no reference to char types
 
--A null value named nil. Many good arguments to not include it in statically typed langauges, but has advantages for dynamically typed
+- A null value named nil. Many good arguments to not include it in statically typed langauges, but has advantages for dynamically typed
 
 ## Expressions
 
@@ -138,7 +138,7 @@ We implement only If/else, while, and classic for loops
 
  Objects are either classes (C++, Java, C#) or prototypes (Javascript)
 
- In class based languages objects are instances of classes, where the class definition contains the methods and inheritance chain, while the instance contains the non-static data.
+ In class based languages, objects are instances of classes, where the class definition contains the methods and inheritance chain, while the instance contains the non-static data.
 
  Prototype-languages have only objects, with no classes. each object contains states and methods, while objects are allowed to inherit from each other (delegate) objects. Most prototypical language writing devolves into writing classes anyway
 
