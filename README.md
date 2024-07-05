@@ -1,6 +1,7 @@
 # Compiler_Project
 
 We will be proceeding with C++
+using an automated test framework as we develop?
 
 * Guides for Compiler/Interpreter Design
   - Crafting Interpreters: https://timothya.com/pdfs/crafting-interpreters.pdf
