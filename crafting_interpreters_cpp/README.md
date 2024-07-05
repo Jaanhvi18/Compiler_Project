@@ -1,0 +1,1 @@
+This Sub-directory contains my attempt to follow along with the "Crafting Interpreters" book in C++. This document additionally any external notes and documentation on the project not conveyed through code/comments
