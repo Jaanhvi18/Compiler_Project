@@ -1,5 +1,5 @@
 # Intro and Plan
-This Sub-directory contains my (judah) first attempt to follow along with the "Crafting Interpreters" book in C++. This document additionally any external notes and documentation on the project not conveyed through code/comments
+This Sub-directory contains our first attempt to follow along with the "Crafting Interpreters" book in C++. This document additionally any external notes and documentation on the project not conveyed through code/comments
 
 The book is divided into a walkthrough of a java and a C based implementation. Author notes in 1.3 that most major compilers (GCC, LLVM, Javascript VMs) are written in C++, an OOP language, The java approach taken by the texbook is a tree-walk interpreter, while the C implementation is a byte code compiler.
 
@@ -12,7 +12,7 @@ The book is divided into a walkthrough of a java and a C based implementation. A
 Source Code (string) -> Tokens 
     - Lexing/scanning
 
-Process through which the stream of characters within the soruce file is converted into only the meaningful tokens of the language
+Process through which the stream of characters within the source file is converted into only the meaningful tokens of the language
 
 Tokens -> Syntax Tree
     - Parsing
