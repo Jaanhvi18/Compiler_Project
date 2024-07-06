@@ -15,5 +15,5 @@ public:
 
 private:
     void report(int line, const std::string &where, const std::string &message);
-    std::string read_file(const std::string &file);
+    std::string readFile(const std::string &file);
 };
