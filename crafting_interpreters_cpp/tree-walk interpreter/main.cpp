@@ -13,7 +13,8 @@ int main(int argc, char* argv[]) {
         std::cerr<<"Enter a single argument containing source file name"<<std::endl;
         exit(1);
     }
-    TreeWalker compiler = TreeWalker(argv[1]);
+    TreeWalker compiler = TreeWalker();
+    compiler.run(argv[1]);
 }
 
 

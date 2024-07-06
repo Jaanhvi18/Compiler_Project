@@ -4,12 +4,15 @@
 class TreeWalker  {
 public:
 
-    TreeWalker(const char*); //takes the command line argument file as input
-    ~TreeWalker();
+    TreeWalker() {} //takes the command line argument file as input
+    ~TreeWalker() {}
+
+
+    void run(const char*);
 
 
 private:
-    std::string file_data;
+    std::string read_file(const std::string);
 
 
 };
