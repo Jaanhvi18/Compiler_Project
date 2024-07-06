@@ -8,8 +8,8 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "/Users/jaanhviagarwal/Compiler_Project/crafting_interpreters_cpp/tree-walk interpreter/TreeWalker.cpp" "CMakeFiles/tree_walker.dir/TreeWalker.cpp.o" "gcc" "CMakeFiles/tree_walker.dir/TreeWalker.cpp.o.d"
-  "/Users/jaanhviagarwal/Compiler_Project/crafting_interpreters_cpp/tree-walk interpreter/main.cpp" "CMakeFiles/tree_walker.dir/main.cpp.o" "gcc" "CMakeFiles/tree_walker.dir/main.cpp.o.d"
+  "/Users/judahrobbinsbernal/Documents/Comp Sci/Personal Projects/c++/Compiler_Project/crafting_interpreters_cpp/tree-walk interpreter/TreeWalker.cpp" "CMakeFiles/tree_walker.dir/TreeWalker.cpp.o" "gcc" "CMakeFiles/tree_walker.dir/TreeWalker.cpp.o.d"
+  "/Users/judahrobbinsbernal/Documents/Comp Sci/Personal Projects/c++/Compiler_Project/crafting_interpreters_cpp/tree-walk interpreter/main.cpp" "CMakeFiles/tree_walker.dir/main.cpp.o" "gcc" "CMakeFiles/tree_walker.dir/main.cpp.o.d"
   )
 
 # Targets to which this target links which contain Fortran sources.

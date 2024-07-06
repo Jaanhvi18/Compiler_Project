@@ -6,8 +6,8 @@
 void TreeWalker::run(const char *file)
 {
     // given this should exist in the root file
-    std::string relative_path = std::string("../test_files/") + std::string(file);
-    std::string source = read_file(relative_path);
+    const std::string relative_path = std::string("../test_files/") + std::string(file);
+    const std::string source = read_file(relative_path);
     std::cout << source << std::endl;
 }
 
@@ -24,24 +24,13 @@ void TreeWalker::error(int line, const std::string &message)
 std::string TreeWalker::read_file(const std::string &file)
 {
     std::ifstream file_reader(file);
-    std::string source;
-
-    if (file_reader.is_open())
-    {
-        while (!file_reader.eof())
-            source += file_reader.get();
-    }
-    if (file_reader.fail() && !file_reader.eof())
-    {
-        error(0, "Error reading file" + file);
+    
+    if (!file_reader) {
+        error(0, "Unable to open file");
         exit(1);
     }
-
-    else
-    {
-        std::cerr << "Unable to read file" << std::endl;
-        exit(1);
-    }
-    source.pop_back(); // reads in additional ? at the end of the file
+    std::string source = std::string((std::istreambuf_iterator<char>(file_reader)),
+                                std::istreambuf_iterator<char>());
+   
     return source;
 }
