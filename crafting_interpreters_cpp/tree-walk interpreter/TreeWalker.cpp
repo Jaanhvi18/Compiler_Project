@@ -9,7 +9,7 @@ void TreeWalker::run(const char* file) {
     std::cout<<source<<std::endl;
 }
 
-
+// reading in the file
 std::string TreeWalker::read_file(std::string file) {
     std::ifstream file_reader(file);
     std::string source;
