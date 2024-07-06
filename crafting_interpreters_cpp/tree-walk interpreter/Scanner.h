@@ -17,15 +17,21 @@ private:
     std::vector<Token> tokens;
     std::unordered_map<const char*, int> keywords = {
         {"and",AND},
-        {"and",AND},
-        {"and",AND},
-        {"and",AND},
-        {"and",AND},
-        {"and",AND},
-        {"and",AND},
-        {"and",AND},
-        {"and",AND},
-        {"and",AND},
+        {"class",CLASS},
+        {"else",ELSE},
+        {"false",FALSE},
+        {"for",FOR},
+        {"fun",FUN},
+        {"if",IF},
+        {"nil",NIL},
+        {"or",OR},
+        {"print",PRINT},
+        {"return",RETURN},
+        {"super",SUPER},
+        {"this",THIS},
+        {"true",TRUE},
+        {"var",VAR},
+        {"while",WHILE}
     };
 
     int start = 0;
