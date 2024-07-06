@@ -74,3 +74,11 @@ graph TD
     ```sh
     ./run_tests.sh
     ```
+
+
+### Compiling C++ Files
+
+To compile all `.cpp` files in a directory into an executable named `output_executable_name.out` using `g++`
+
+ ```sh
+g++ -std=c++11 *.cpp -o output_executable_name.out
