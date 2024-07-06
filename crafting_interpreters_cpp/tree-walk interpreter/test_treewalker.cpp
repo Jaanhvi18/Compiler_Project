@@ -3,14 +3,16 @@
 #include <sstream>
 #include <fstream>
 #include <string>
+#include <cstdio> // for remove
 
 // Function to test the error and report functions
-void testErrorFunction() {
+void testErrorFunction()
+{
     TreeWalker treeWalker;
 
     // Redirect std::cerr to a stringstream
     std::stringstream buffer;
-    std::streambuf* old = std::cerr.rdbuf(buffer.rdbuf());
+    std::streambuf *old = std::cerr.rdbuf(buffer.rdbuf());
 
     // Call the error function
     int testLine = 42;
@@ -25,9 +27,12 @@ void testErrorFunction() {
     std::string expectedOutput = "Error at line 42: Test error message\n";
 
     // Verify the output
-    if (output == expectedOutput) {
+    if (output == expectedOutput)
+    {
         std::cout << "Error function test passed!" << std::endl;
-    } else {
+    }
+    else
+    {
         std::cout << "Error function test failed!" << std::endl;
         std::cout << "Expected: " << expectedOutput;
         std::cout << "Got: " << output;
@@ -35,12 +40,13 @@ void testErrorFunction() {
 }
 
 // Function to test the run function with a non-existent file (indirectly tests readFile)
-void testRunFunctionWithNonExistentFile() {
+void testRunFunctionWithNonExistentFile()
+{
     TreeWalker treeWalker;
 
     // Redirect std::cerr to a stringstream
     std::stringstream buffer;
-    std::streambuf* old = std::cerr.rdbuf(buffer.rdbuf());
+    std::streambuf *old = std::cerr.rdbuf(buffer.rdbuf());
 
     // Try to run the TreeWalker with a non-existent file
     treeWalker.run("non_existent_file.txt");
@@ -53,9 +59,12 @@ void testRunFunctionWithNonExistentFile() {
     std::string expectedOutput = "Error at line 0: Unable to read file\n";
 
     // Verify the output
-    if (output == expectedOutput) {
+    if (output == expectedOutput)
+    {
         std::cout << "Run function with non-existent file test passed!" << std::endl;
-    } else {
+    }
+    else
+    {
         std::cout << "Run function with non-existent file test failed!" << std::endl;
         std::cout << "Expected: " << expectedOutput;
         std::cout << "Got: " << output;
@@ -63,7 +72,8 @@ void testRunFunctionWithNonExistentFile() {
 }
 
 // Function to test the run function with an existing file
-void testRunFunctionWithExistingFile() {
+void testRunFunctionWithExistingFile()
+{
     TreeWalker treeWalker;
 
     // Create a temporary test file
@@ -73,7 +83,7 @@ void testRunFunctionWithExistingFile() {
 
     // Redirect std::cout to a stringstream to capture the output
     std::stringstream buffer;
-    std::streambuf* old = std::cout.rdbuf(buffer.rdbuf());
+    std::streambuf *old = std::cout.rdbuf(buffer.rdbuf());
 
     // Run the TreeWalker
     treeWalker.run("test_file.txt");
@@ -86,9 +96,12 @@ void testRunFunctionWithExistingFile() {
     std::string expectedOutput = "This is a test file content.";
 
     // Verify the output
-    if (output == expectedOutput) {
+    if (output == expectedOutput)
+    {
         std::cout << "Run function with existing file test passed!" << std::endl;
-    } else {
+    }
+    else
+    {
         std::cout << "Run function with existing file test failed!" << std::endl;
         std::cout << "Expected: " << expectedOutput;
         std::cout << "Got: " << output;
@@ -98,7 +111,8 @@ void testRunFunctionWithExistingFile() {
     std::remove("test_file.txt");
 }
 
-int main() {
+int main()
+{
     // Run the error function test
     testErrorFunction();
 
