@@ -14,7 +14,7 @@ std::string TreeWalker::readFile(const std::string& file) {
     std::ifstream read(file);
 
     if (!read.is_open()) {
-        std::cerr<<"Unable to read file"<<std::endl;
+        error(0,"Unable to read file");
         exit(1);
     }
 
@@ -22,4 +22,16 @@ std::string TreeWalker::readFile(const std::string& file) {
                                 std::istreambuf_iterator<char>());
     read.close();
     return source;
+}
+
+void TreeWalker::error(int line, const std::string &message)
+{
+    // Call report to display the error message
+    report(line, "", message);
+}
+
+void TreeWalker::report(int line, const std::string &where, const std::string &message)
+{
+    // Implementation of the report function
+    std::cerr << "Error at line " << line << where << ": " << message << std::endl;
 }
