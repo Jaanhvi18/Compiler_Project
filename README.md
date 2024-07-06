@@ -57,3 +57,20 @@ graph TD
     end
 ```
 
+
+
+### Testing
+1. **Testing**: Automated testing for the TreeWalker Class
+
+
+2. **Make the script executable**: Give the script executable permissions:
+
+    ```sh
+    chmod +x run_tests.sh
+    ```
+
+3. **Run the script**: Execute the script to compile, run the tests, and clean up:
+
+    ```sh
+    ./run_tests.sh
+    ```
