@@ -1,8 +1,8 @@
 #include "TreeWalker.h"
-
+#include <iostream>
 
 TreeWalker::TreeWalker(const char* file) {
-    file_data = "huh!";
+    std::cout<<file<<std::endl;
 }
 
 

@@ -9,7 +9,11 @@
 #include <iostream>
 
 int main(int argc, char* argv[]) {
-    std::cout<<"Hello World!"<<std::endl;
+    if (argc != 2) {
+        std::cerr<<"Enter a single argument containing source file name"<<std::endl;
+        exit(1);
+    }
+    TreeWalker compiler = TreeWalker(argv[1]);
 }
 
 
