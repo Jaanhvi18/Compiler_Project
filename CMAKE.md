@@ -58,7 +58,7 @@ Ensure you have the following installed:
 5. **Run the Executable**:
 
     ```sh
-    ./tree_walker
+    ./tree_walker test.txt       
     ```
 
 ## Troubleshooting
