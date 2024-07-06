@@ -16,9 +16,18 @@ private:
 
     std::string source;
     std::vector<Token> tokens;
-    
-
-
+    std::unordered_map<const char*, int> keywords = {
+        {"and",AND},
+        {"and",AND},
+        {"and",AND},
+        {"and",AND},
+        {"and",AND},
+        {"and",AND},
+        {"and",AND},
+        {"and",AND},
+        {"and",AND},
+        {"and",AND},
+    };
 
     int start = 0;
     int current = 0;
