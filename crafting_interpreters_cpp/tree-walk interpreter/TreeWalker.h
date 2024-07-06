@@ -2,8 +2,7 @@
 
 #include <string>
 
-class TreeWalker
-{
+class TreeWalker {
 public:
     TreeWalker() {} // takes the command line argument file as input
     ~TreeWalker() {}
