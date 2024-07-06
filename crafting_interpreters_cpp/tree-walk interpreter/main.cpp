@@ -20,10 +20,6 @@ int main(int argc, char *argv[])
     TreeWalker compiler = TreeWalker();
     compiler.run(argv[1]);
 
-    if (compiler.hadError())
-    {
-        return 65;
-    }
     // and now exit with a zero status code to show success
     return 0;
 }

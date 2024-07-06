@@ -4,6 +4,7 @@
 Building a C++ compiler 
 
 ### Column Name
+- [ ] Move error functionality so the methods are accessible in all classes, rather than just within the overarching class
 - [ ] Add test functions for the C++ compiler #testing @Jaanhvi@Judah 2024-07-07 
 - [ ] Figure out CMAKE caching 
 
