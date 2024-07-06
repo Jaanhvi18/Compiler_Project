@@ -1,4 +1,5 @@
 #include "Scanner.h"
+#include "TokenType.h"
 #include "Token.h"
 #include <cctype>  // For isdigit
 #include <unordered_map>
@@ -20,8 +21,8 @@ std::unordered_map<std::string, int> keywords = {
     {"this", THIS},
     {"true", TRUE},
     {"var", VAR},
-    {"while", WHILE}};
-    
+    {"while", WHILE}
+};
 
 std::vector<Token> Scanner::scanTokens() {
     //process the file
@@ -35,7 +36,6 @@ std::vector<Token> Scanner::scanTokens() {
     return tokens;
 }
 
-// checks whether the cur pos in the source str >= end of the string
 bool Scanner::atEnd() {
     return current >= source.length();
 }
@@ -117,11 +117,14 @@ void Scanner::addToken(int type, int literal) {
 int Scanner::scanInt(char c) {
     int val = 0;
     int k;
+
     // Convert each character into an int value
     while ((k = chrpos("0123456789", c)) >= 0) {
         val = val * 10 + k;
         c = advance();
     }
+
+
   // We hit a non-integer character, put it back.
     putBack(c);
     return val;
@@ -137,6 +140,7 @@ int Scanner::chrpos(const std::string& s, char c) {
     }
     return static_cast<int>(pos); //returns the position of the first occurence of the char
 }
+
 
 
 
