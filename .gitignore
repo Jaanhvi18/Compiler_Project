@@ -4,3 +4,4 @@ echo "CMakeFiles/" >> ../../../.gitignore
 echo "cmake_install.cmake" >> ../../../.gitignore
 echo "Makefile" >> ../../../.gitignore
 echo "tree_walker" >> ../../../.gitignore
+crafting_interpreters_cpp/tree-walk interpreter/build/*
