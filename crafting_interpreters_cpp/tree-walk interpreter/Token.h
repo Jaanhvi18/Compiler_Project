@@ -19,7 +19,7 @@ public:
 private:
     int type;
     const char* lexeme;
-    int literal; //type unclear
+    int literal; //type unclear so like an intvalue field will hold the value of the integer that we scanned in
     int line;
 
 };

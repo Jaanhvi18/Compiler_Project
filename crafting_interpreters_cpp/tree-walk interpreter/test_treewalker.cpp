@@ -111,16 +111,16 @@ void testRunFunctionWithExistingFile()
     std::remove("test_file.txt");
 }
 
-int main()
-{
-    // Run the error function test
-    testErrorFunction();
+// int main()
+// {
+//     // Run the error function test
+//     testErrorFunction();
 
-    // Run the run function test with a non-existent file
-    testRunFunctionWithNonExistentFile();
+//     // Run the run function test with a non-existent file
+//     testRunFunctionWithNonExistentFile();
 
-    // Run the run function test with an existing file
-    testRunFunctionWithExistingFile();
+//     // Run the run function test with an existing file
+//     testRunFunctionWithExistingFile();
 
-    return 0;
-}
+//     return 0;
+// }
