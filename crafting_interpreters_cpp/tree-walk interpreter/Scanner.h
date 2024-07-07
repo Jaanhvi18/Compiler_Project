@@ -16,18 +16,7 @@ public:
 private:
     std::string source;
     std::vector<Token> tokens;
-    // std::unordered_map<const char*, int> keywords = {
-    //     {"and",AND},
-    //     {"and",AND},
-    //     {"and",AND},
-    //     {"and",AND},
-    //     {"and",AND},
-    //     {"and",AND},
-    //     {"and",AND},
-    //     {"and",AND},
-    //     {"and",AND},
-    //     {"and",AND},
-    // };
+
 
     int start = 0;
     int current = 0;
@@ -51,4 +40,8 @@ private:
     int scanInt(char);
     int chrpos(const std::string &, char);
     int lookupKeyword(const std::string &text);
+    bool isDigit(char);
+    bool isAlpha(char);
+    bool isAlphaNumeric(char);
+    void identifier();
 };
