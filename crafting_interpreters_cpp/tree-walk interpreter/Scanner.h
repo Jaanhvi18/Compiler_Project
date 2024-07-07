@@ -4,18 +4,19 @@
 #include <unordered_map>
 // #include "Keywords.h"
 
-class Scanner
-{
+class Scanner {
 
 public:
-    Scanner(std::string src) : source(src){};
+    Scanner();
     ~Scanner(){};
 
     std::vector<Token> scanTokens();
+    void inputSource(const std::string&);
 
 private:
     std::string source;
     std::vector<Token> tokens;
+    std::unordered_map<std::string,int> keywords;
 
 
     int start = 0;
@@ -38,10 +39,10 @@ private:
     char peek();
     char peekNext();
     int scanInt(char);
-    int chrpos(const std::string &, char);
+    int locateChar(const std::string &, char);
     int lookupKeyword(const std::string &text);
-    bool isDigit(char);
-    bool isAlpha(char);
-    bool isAlphaNumeric(char);
+    //bool isDigit(char);
+    //bool isAlpha(char);
+    //bool isAlphaNumeric(char);
     void identifier();
 };

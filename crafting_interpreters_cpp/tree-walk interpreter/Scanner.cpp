@@ -4,27 +4,35 @@
 #include <cctype> // For isdigit
 #include <unordered_map>
 
-// the more popular keywords in C++ ,  there are a lot more keywords we havemt accpounted fior
-std::unordered_map<std::string, int> keywords = {
-    {"and", AND},
-    {"class", CLASS},
-    {"else", ELSE},
-    {"false", FALSE},
-    {"for", FOR},
-    {"fun", FUN},
-    {"if", IF},
-    {"nil", NIL},
-    {"or", OR},
-    {"print", PRINT},
-    {"return", RETURN},
-    {"super", SUPER},
-    {"this", THIS},
-    {"true", TRUE},
-    {"var", VAR},
-    {"while", WHILE}};
+Scanner::Scanner() {
+    //keywords is a datamember of scanner and should be declared within its scope
+    keywords = {
+        {"and", AND},
+        {"class", CLASS},
+        {"else", ELSE},
+        {"false", FALSE},
+        {"for", FOR},
+        {"fun", FUN},
+        {"if", IF},
+        {"nil", NIL},
+        {"or", OR},
+        {"print", PRINT},
+        {"return", RETURN},
+        {"super", SUPER},
+        {"this", THIS},
+        {"true", TRUE},
+        {"var", VAR},
+        {"while", WHILE}
+    };
+}
 
-std::vector<Token> Scanner::scanTokens()
-{
+
+//allows one instances of scanner, fead in source when needed
+void Scanner::inputSource(const std::string& src) {
+    source = src;
+}
+
+std::vector<Token> Scanner::scanTokens() {
     // process the file
     while (!atEnd())
     {
@@ -37,13 +45,11 @@ std::vector<Token> Scanner::scanTokens()
     return tokens;
 }
 
-bool Scanner::atEnd()
-{
+bool Scanner::atEnd() {
     return current >= source.length();
 }
 
-void Scanner::scanToken()
-{
+void Scanner::scanToken() {
     // Checks and consumes the current token
     char cur = advance();
 
@@ -91,14 +97,14 @@ void Scanner::scanToken()
     case '\n':
         line++;
         break;
-    default:
-        if (isDigit(cur))
+    default: //consider refactoring below behavior into a separate function
+        if (isdigit(cur)) //number case
         {
             int value = scanInt(cur);
             // Aaccounting for an adding the int literal token here
             addToken(NUMBER, value);
         }
-        else if (isAlpha(cur) || cur == '_')
+        else if (isalpha(cur) || cur == '_') //identifer case
         {
             // Consume the entire identifier
             while (!atEnd() && (isalnum(peek()) || peek() == '_'))
@@ -128,8 +134,7 @@ void Scanner::scanToken()
     }
 }
 
-char Scanner::advance()
-{
+char Scanner::advance() {
     // we need to be able to baccktrack chars if we read more than we shoudl
     if (putback != 0)
     {
@@ -145,31 +150,30 @@ char Scanner::advance()
     return c;
 }
 
-void Scanner::putBack(char c)
-{
+
+void Scanner::putBack(char c) {
     putback = c; // Store the character in putback
 }
 
-void Scanner::addToken(int type)
-{
+
+void Scanner::addToken(int type) {
     addToken(type, 0);
 }
 
-void Scanner::addToken(int type, int literal)
-{
+
+void Scanner::addToken(int type, int literal) {
     std::string text = source.substr(start, current - start);
     tokens.push_back(Token(type, text.c_str(), literal, line));
 }
 
 // Scan and return an integer literal
 // value from the input file.
-int Scanner::scanInt(char c)
-{
+int Scanner::scanInt(char c) {
     int val = 0;
     int k;
 
     // Convert each character into an int value
-    while ((k = chrpos("0123456789", c)) >= 0)
+    while ((k = locateChar("0123456789", c)) >= 0)
     {
         val = val * 10 + k;
         c = advance();
@@ -181,57 +185,56 @@ int Scanner::scanInt(char c)
 }
 
 // Return the position of character c
-int Scanner::chrpos(const std::string &s, char c)
-{
-    // using auto instead of std::string::size_type
-    auto pos = s.find(c); // find is looking for the first occurence of the char in string s
-    // also dont think we want to define an eexplicit
+int Scanner::locateChar(const std::string &s, char c) {
+    //this code was overcommented
+
+    auto pos = s.find(c); //first instance of character
     if (pos == std::string::npos)
-    {
-        return -1; // c was not found in s
-    }
-    return static_cast<int>(pos); // returns the position of the first occurence of the char
+        return -1;
+    return static_cast<int>(pos);
 }
 
-int Scanner::lookupKeyword(const std::string &text)
-{
+
+int Scanner::lookupKeyword(const std::string &text) {
     auto it = keywords.find(text);
-    if (it != keywords.end())
-    {                      // no matching keyword found
-        return it->second; // returns  the token_type of the given keyword
-    }
-    return -1; // not a keyword
+    if (it == keywords.end())
+        return -1;
+    return it->second; // not a keyword
+}
+
+
+void Scanner::identifier() {
+    while (isalnum(peek()))
+        advance();
+    addToken(IDENTIFIER);
 }
 
 // chcks if the cur postion is in the end of the src
 // returns the char at the cur po in the source.
-char Scanner::peek()
-{
+char Scanner::peek() {
     if (atEnd())
         return '\0';
     return source.at(current);
 }
 
-bool Scanner::isDigit(char c)
-{
-    return c >= '0' && c <= '9';
-}
 
-bool Scanner::isAlpha(char c)
-{
-    return (c >= 'a' && c <= 'z') ||
-           (c >= 'A' && c <= 'Z') ||
-           c == '_';
-}
+//the builtin alnum works just fine. No point in adding additional code to solve the same simple problem
 
-bool Scanner::isAlphaNumeric(char c)
-{
+/* bool Scanner::isAlphaNumeric(char c) {
     return isAlpha(c) || isDigit(c);
 }
 
-void Scanner::identifier()
-{
-    while (isAlphaNumeric(peek()))
-        advance();
-    addToken(IDENTIFIER);
+
+bool Scanner::isDigit(char c) {
+    return c >= '0' && c <= '9';
 }
+
+
+bool Scanner::isAlpha(char c) {
+    return (c >= 'a' && c <= 'z') ||
+           (c >= 'A' && c <= 'Z') ||
+           c == '_';
+} */
+
+
+
