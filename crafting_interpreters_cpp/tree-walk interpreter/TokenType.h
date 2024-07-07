@@ -11,6 +11,9 @@ enum TokenType {
     GREATER, GREATER_EQUAL,
     LESS, LESS_EQUAL,
 
+    // Increment and decrement tokens
+    INCREMENT,DECREMENT,
+
     // Literals.
     IDENTIFIER, STRING, NUMBER,
     // NUMBER is integer literal

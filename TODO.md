@@ -7,7 +7,7 @@ Building a C++ compiler.
 - [ ] Move error functionality so the methods are accessible in all classes, rather than just within the overarching class
 - [ ] Add test functions for the C++ compiler #testing @Jaanhvi@Judah 2024-07-07 
 - [ ] Figure out CMAKE caching
-- [ ] increment/decremet -  post/pre
+- [ ] post/pre logic in the parser
 
 ### Completed Column ✓
 - [x] Judah: updated file reading 
@@ -19,4 +19,5 @@ Building a C++ compiler.
 - [x] Account for fractions/decimals
 - [x] add methodolgy to test using cli
 - [x] run prompt
+- [x] increment/decrement in the scanner
 

@@ -43,8 +43,5 @@ private:
     void scanString();
     int locateChar(const std::string &, char);
     int lookupKeyword(const std::string &text);
-    //bool isDigit(char);
-    //bool isAlpha(char);
-    //bool isAlphaNumeric(char);
     void identifier();
 };
