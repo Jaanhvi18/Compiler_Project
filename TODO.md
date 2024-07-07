@@ -8,6 +8,8 @@ Building a C++ compiler.
 - [ ] Add test functions for the C++ compiler #testing @Jaanhvi@Judah 2024-07-07 
 - [ ] Figure out CMAKE caching
 - [ ] post/pre logic in the parser
+- [ ]Figure out AST 
+- [ ] Figure out parser logic and structure
 
 ### Completed Column ✓
 - [x] Judah: updated file reading 
@@ -20,4 +22,5 @@ Building a C++ compiler.
 - [x] add methodolgy to test using cli
 - [x] run prompt
 - [x] increment/decrement in the scanner
+- [x] updated scanInt to recognise after decimal point as well as int whole nos completely
 

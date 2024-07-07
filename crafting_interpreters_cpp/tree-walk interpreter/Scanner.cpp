@@ -151,8 +151,9 @@ void Scanner::scanToken()
     default:
         if (isdigit(cur))
         { // number case
-            int value = scanInt(cur);
-            addToken(NUMBER, value);
+            // int value = scanInt(cur);
+            // addToken(NUMBER, value);
+            scanInt();
         }
         else if (isalpha(cur) || cur == '_')
         { // identifier case
@@ -226,28 +227,50 @@ void Scanner::addToken(int type, int literal)
     tokens.push_back(Token(type, text, literal, line));
 }
 
-void Scanner::addToken(int type, std::string &literal)
+void Scanner::addToken(int type, const std::string &literal)
 {
     std::string text = source.substr(start, current - start);
     tokens.push_back(Token(type, text, literal, line));
 }
 
-// Scan and return an integer literal
-// value from the input file.
-int Scanner::scanInt(char c)
+// handling both int and float
+void Scanner::scanInt()
 {
     while (isdigit(peek()))
         advance();
+    // look for the fractional part  of the number
 
     if (peek() == '.' && isdigit(peekNext()))
     {
+        // consume the decimal point
         advance();
 
         while (isdigit(peek()))
             advance();
+        addToken(FLOAT, source.substr(start, current - start));
     }
-    return std::stoi(source.substr(start, current - start));
+    else
+    {
+        addToken(NUMBER, source.substr(start, current - start));
+    }
 }
+
+// Scan and return an integer literal
+// value from the input file.
+// int Scanner::scanInt(char c)
+// {
+//     while (isdigit(peek()))
+//         advance();
+
+//     if (peek() == '.' && isdigit(peekNext()))
+//     {
+//         advance();
+
+//         while (isdigit(peek()))
+//             advance();
+//     }
+//     return std::stoi(source.substr(start, current - start));
+// }
 
 // Return the position of character c
 int Scanner::locateChar(const std::string &s, char c)

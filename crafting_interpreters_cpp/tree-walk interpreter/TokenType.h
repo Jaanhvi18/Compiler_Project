@@ -16,7 +16,8 @@ enum TokenType {
 
     // Literals.
     IDENTIFIER, STRING, NUMBER,
-    // NUMBER is integer literal
+    //accounting for decimals and try to continue reading after . intead of returning an integer
+    FLOAT,
 
     // Keywords.
     AND, CLASS, ELSE, FALSE, FUN, FOR, IF, NIL, OR,

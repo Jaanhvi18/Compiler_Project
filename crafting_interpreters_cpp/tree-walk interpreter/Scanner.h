@@ -34,14 +34,15 @@ private:
 
     void addToken(int);      // takes in TokenType enum value
     void addToken(int, int); // token type and "object"
-    void addToken(int, std::string&);
+    void addToken(int type, const std::string &literal);
 
     bool match(char);
     char peek();
     char peekNext();
-    int scanInt(char);
+    void scanInt();
     void scanString();
     int locateChar(const std::string &, char);
     int lookupKeyword(const std::string &text);
     void identifier();
+
 };
