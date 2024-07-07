@@ -6,11 +6,14 @@
 
 
 void TreeWalker::run(const std::string& source) {
+    std::cout<<"source line: " <<source<<std::endl;
     scanner.inputSource(source);
     std::vector<Token> tokens = scanner.scanTokens();
+    std::cout<<tokens.size()<<" Tokens detected (including eof)"<<std::endl;
     for (Token token : tokens) {
-        std::cout<<token.toString()<<std::endl;
+        std::cout<<token.getLexeme()<<std::endl;
     }
+    tokens.clear();
 }
 
 
@@ -21,8 +24,7 @@ void TreeWalker::runPrompt() {
         getline(std::cin,currentLine);
         if (currentLine == "exit")
             break;
-        
-        //run(currentLine);
+        run(currentLine);
     }
 }
 

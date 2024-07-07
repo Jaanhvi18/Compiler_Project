@@ -3,6 +3,7 @@
 #include "Token.h"
 #include <cctype> // For isdigit
 #include <unordered_map>
+#include <iostream>
 
 Scanner::Scanner() {
     //keywords is a datamember of scanner and should be declared within its scope
@@ -34,6 +35,9 @@ void Scanner::inputSource(const std::string& src) {
 
 std::vector<Token> Scanner::scanTokens() {
     // process the file
+    start = 0;
+    current = 0;
+    tokens.clear();
     while (!atEnd())
     {
         start = current;
@@ -71,6 +75,7 @@ void Scanner::scanToken() {
     case ',':
         addToken(COMMA);
         break;
+    //mathematical operators
     case '.':
         addToken(DOT);
         break;
@@ -86,11 +91,37 @@ void Scanner::scanToken() {
     case '*':
         addToken(STAR);
         break;
+    case '/':
+        if (match('/')) {
+            while (peek() != '\n' && !atEnd())
+                advance();
+        }
+        else {
+            addToken(SLASH);
+        }
+        break;
     case '%':
         addToken(MODULO);
         break;
+    //logical operators
+    case '!':
+        addToken(match('=') ? BANG_EQUAL : BANG);
+        break;
+    case '=':
+        addToken(match('=') ? EQUAL_EQUAL : EQUAL);
+        break;
+    case '<':
+        addToken(match('=') ? LESS_EQUAL : LESS);
+        break;
+    case '>':
+        addToken(match('=') ? GREATER_EQUAL : GREATER);
+        break;
+    case '"':
+        scanString();
+        break;
     case ' ':
     case '\r':
+    case '\f':
     case '\t':
         // ignoring whitespace
         break;
@@ -151,6 +182,15 @@ char Scanner::advance() {
 }
 
 
+bool Scanner::match(char expected) {
+    if (atEnd()) return false;
+    if (source.at(current) != expected) return false;
+
+    current++;
+    return true;
+}
+
+
 void Scanner::putBack(char c) {
     putback = c; // Store the character in putback
 }
@@ -162,26 +202,29 @@ void Scanner::addToken(int type) {
 
 
 void Scanner::addToken(int type, int literal) {
+    
     std::string text = source.substr(start, current - start);
-    tokens.push_back(Token(type, text.c_str(), literal, line));
+    tokens.push_back(Token(type, text, literal, line));
+}
+
+void Scanner::addToken(int type, std::string& literal) {
+    std::string text = source.substr(start, current - start);
+    tokens.push_back(Token(type, text, literal, line));
 }
 
 // Scan and return an integer literal
 // value from the input file.
 int Scanner::scanInt(char c) {
-    int val = 0;
-    int k;
+    while (isdigit(peek()))
+        advance();
+    
+    if (peek() == '.' && isdigit(peekNext())) {
+        advance();
 
-    // Convert each character into an int value
-    while ((k = locateChar("0123456789", c)) >= 0)
-    {
-        val = val * 10 + k;
-        c = advance();
+        while (isdigit(peek()))
+            advance();
     }
-
-    // We hit a non-integer character, put it back.
-    putBack(c);
-    return val;
+    return std::stoi(source.substr(start, current - start));   
 }
 
 // Return the position of character c
@@ -192,6 +235,25 @@ int Scanner::locateChar(const std::string &s, char c) {
     if (pos == std::string::npos)
         return -1;
     return static_cast<int>(pos);
+}
+
+
+void Scanner::scanString() {
+    while (peek() != '"' && !atEnd()) {
+        if (peek() == '\n')
+            line++;
+        advance();
+    }
+
+    if (atEnd()) {
+        std::cerr<<"Unfinished String"<<std::endl;
+        exit(1);
+    }
+
+    advance();
+
+    std::string val = source.substr(start + 1, (current - 1) - start + 1).c_str();
+    addToken(STRING,val);
 }
 
 
@@ -215,6 +277,12 @@ char Scanner::peek() {
     if (atEnd())
         return '\0';
     return source.at(current);
+}
+
+char Scanner::peekNext() {
+    if (current + 1 >= source.length())
+        return '\0';
+    return source.at(current + 1);
 }
 
 
