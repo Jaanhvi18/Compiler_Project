@@ -4,5 +4,5 @@
 cmake_minimum_required(VERSION 3.30)
 set(CMAKE_CXX_STANDARD 17)
 project(tree_walker)
-add_executable(tree_walker main.cpp TreeWalker.cpp Scanner.cpp Token.h TokenType.h ErrorReporter.h)
+add_executable(tree_walker main.cpp TreeWalker.cpp Scanner.cpp Token.h TokenType.h ErrorReporter.h Expr.hpp Stmt.hpp)
 
