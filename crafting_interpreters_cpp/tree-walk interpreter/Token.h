@@ -22,7 +22,7 @@ public:
     ~Token() {}
 
     std::string toString() {
-       return lexeme;
+       return lexeme + " " + std::to_string(type);
        /*  std::string literal_str;
         try {
             int asint = std::get<int>(literal);

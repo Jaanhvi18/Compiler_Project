@@ -3,15 +3,22 @@
 #include <fstream>
 #include <cstdlib> // for exit()
 
+TreeWalker::TreeWalker() {
+    scanner = new Scanner(errorReporter);
+}
 
 
 void TreeWalker::run(const std::string& source) {
-    std::cout<<"source line: " <<source<<std::endl;
-    scanner.inputSource(source);
-    std::vector<Token> tokens = scanner.scanTokens();
-    std::cout<<tokens.size()<<" Tokens detected (including eof)"<<std::endl;
-    for (Token token : tokens) {
-        std::cout<<token.getLexeme()<<std::endl;
+    scanner->inputSource(source);
+    std::vector<Token> tokens = scanner->scanTokens();
+    if (errorReporter.containsErrors()) {
+        errorReporter.reportErrors();
+        errorReporter.clearErrors();
+    }
+    else {
+        for (Token token : tokens) {
+            std::cout<<token.toString()<<std::endl;
+        }
     }
     tokens.clear();
 }
@@ -33,8 +40,7 @@ void TreeWalker::runFile(const char *file) {
     std::string relative_path = std::string("../test_files/") + std::string(file);
     std::string source = readFile(relative_path);
 
-    std::cout<<source<<std::endl;
-    //run(source);
+    run(source);
 }
 
 // reading in the file
@@ -52,7 +58,7 @@ std::string TreeWalker::readFile(const std::string &file) {
     read.close();
     return source;
 }
-
+/* 
 void TreeWalker::error(int line, const std::string &message) {
     // Call report to display the error message
     report(line, "", message);
@@ -61,4 +67,4 @@ void TreeWalker::error(int line, const std::string &message) {
 void TreeWalker::report(int line, const std::string &where, const std::string &message) {
     // Implementation of the report function
     std::cerr << "Error at line " << line << where << ": " << message << std::endl;
-}
+} */

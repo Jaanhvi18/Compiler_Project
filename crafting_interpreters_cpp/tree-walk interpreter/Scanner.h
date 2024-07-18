@@ -1,4 +1,5 @@
 #include "Token.h"
+#include "ErrorReporter.h"
 #include <string>
 #include <vector>
 #include <unordered_map>
@@ -8,6 +9,7 @@ class Scanner {
 
 public:
     Scanner();
+    Scanner(ErrorReporter&);
     ~Scanner(){};
 
     std::vector<Token> scanTokens();
@@ -17,6 +19,8 @@ private:
     std::string source;
     std::vector<Token> tokens;
     std::unordered_map<std::string,int> keywords;
+
+    ErrorReporter& errorReporter;
 
 
     int start = 0;

@@ -4,7 +4,8 @@
 #include <cctype> // For isdigit
 #include <unordered_map>
 #include <iostream>
-
+#include <algorithm>
+/* 
 Scanner::Scanner()
 {
     // keywords is a datamember of scanner and should be declared within its scope
@@ -26,21 +27,40 @@ Scanner::Scanner()
         {"var", VAR},
         {"while", WHILE}};
 }
+ */
+
+
+Scanner::Scanner(ErrorReporter& errorReporter) : errorReporter(errorReporter) {
+    keywords = {
+        {"and", AND},
+        {"class", CLASS},
+        {"else", ELSE},
+        {"false", FALSE},
+        {"for", FOR},
+        {"fun", FUN},
+        {"if", IF},
+        {"nil", NIL},
+        {"or", OR},
+        {"print", PRINT},
+        {"return", RETURN},
+        {"super", SUPER},
+        {"this", THIS},
+        {"true", TRUE},
+        {"var", VAR},
+        {"while", WHILE}};
+}
 
 // allows one instances of scanner, fead in source when needed
-void Scanner::inputSource(const std::string &src)
-{
+void Scanner::inputSource(const std::string &src) {
     source = src;
 }
 
-std::vector<Token> Scanner::scanTokens()
-{
+std::vector<Token> Scanner::scanTokens() {
     // process the file
     start = 0;
     current = 0;
     tokens.clear();
-    while (!atEnd())
-    {
+    while (!atEnd()) {
         start = current;
         scanToken();
     }
@@ -50,18 +70,15 @@ std::vector<Token> Scanner::scanTokens()
     return tokens;
 }
 
-bool Scanner::atEnd()
-{
+bool Scanner::atEnd() {
     return current >= source.length();
 }
 
-void Scanner::scanToken()
-{
+void Scanner::scanToken() {
     // Checks and consumes the current token
     char cur = advance();
 
-    switch (cur)
-    {
+    switch (cur) {
     // The basic math operators: *, /, +, and -
     case '(':
         addToken(LEFT_PAREN);
@@ -84,23 +101,15 @@ void Scanner::scanToken()
         break;
     case '-':
         if (match('-'))
-        {
             addToken(DECREMENT);
-        }
         else
-        {
             addToken(MINUS);
-        }
         break;
     case '+':
         if (match('+'))
-        {
             addToken(INCREMENT);
-        }
         else
-        {
             addToken(PLUS);
-        }
         break;
     case ';':
         addToken(SEMICOLON);
@@ -109,15 +118,12 @@ void Scanner::scanToken()
         addToken(STAR);
         break;
     case '/':
-        if (match('/'))
-        {
+        if (match('/')) {
             while (peek() != '\n' && !atEnd())
                 advance();
         }
         else
-        {
             addToken(SLASH);
-        }
         break;
     case '%':
         addToken(MODULO);
@@ -149,58 +155,45 @@ void Scanner::scanToken()
         line++;
         break;
     default:
-        if (isdigit(cur))
-        { // number case
-            // int value = scanInt(cur);
-            // addToken(NUMBER, value);
+        if (isdigit(cur)) { // number case
             scanInt();
         }
-        else if (isalpha(cur) || cur == '_')
-        { // identifier case
-            while (!atEnd() && (isalnum(peek()) || peek() == '_'))
-            {
+        else if (isalpha(cur) || cur == '_') { // identifier case
+            while (!atEnd() && (isalnum(peek()) || peek() == '_')) 
                 advance();
-            }
+            
 
             std::string identifier = source.substr(start, current - start);
             int keywordType = lookupKeyword(identifier);
-            if (keywordType != -1)
-            {
+            if (keywordType != -1) 
                 addToken(keywordType);
-            }
-            else
-            {
+            
+            else 
                 addToken(IDENTIFIER);
-            }
+            
         }
-        else
-        {
-            printf("Unrecognized character %c on line %d\n", cur, line);
-            exit(1);
+        else {
+            errorReporter.storeError(line, "Unexpected Character");
         }
         break;
     }
 }
 
-char Scanner::advance()
-{
+char Scanner::advance() {
     // we need to be able to baccktrack chars if we read more than we shoudl
-    if (putback != 0)
-    {
+    if (putback != 0) {
         char temp = putback; // checking if there is a putback char
         putback = 0;         // using the putback char
         return temp;
     }
     char c = source.at(current++); // read the next char from the source
     if (c == '\n')
-    {
         line++; // increment line count on newline
-    }
+    
     return c;
 }
 
-bool Scanner::match(char expected)
-{
+bool Scanner::match(char expected) {
     if (atEnd())
         return false;
     if (source.at(current) != expected)
@@ -210,38 +203,31 @@ bool Scanner::match(char expected)
     return true;
 }
 
-void Scanner::putBack(char c)
-{
+void Scanner::putBack(char c) {
     putback = c; // Store the character in putback
 }
 
-void Scanner::addToken(int type)
-{
+void Scanner::addToken(int type) {
     addToken(type, 0);
 }
 
-void Scanner::addToken(int type, int literal)
-{
-
+void Scanner::addToken(int type, int literal) {
     std::string text = source.substr(start, current - start);
     tokens.push_back(Token(type, text, literal, line));
 }
 
-void Scanner::addToken(int type, const std::string &literal)
-{
+void Scanner::addToken(int type, const std::string &literal) {
     std::string text = source.substr(start, current - start);
     tokens.push_back(Token(type, text, literal, line));
 }
 
 // handling both int and float
-void Scanner::scanInt()
-{
+void Scanner::scanInt() {
     while (isdigit(peek()))
         advance();
     // look for the fractional part  of the number
 
-    if (peek() == '.' && isdigit(peekNext()))
-    {
+    if (peek() == '.' && isdigit(peekNext())) {
         // consume the decimal point
         advance();
 
@@ -250,31 +236,12 @@ void Scanner::scanInt()
         addToken(FLOAT, source.substr(start, current - start));
     }
     else
-    {
         addToken(NUMBER, source.substr(start, current - start));
-    }
+    
 }
 
-// Scan and return an integer literal
-// value from the input file.
-// int Scanner::scanInt(char c)
-// {
-//     while (isdigit(peek()))
-//         advance();
-
-//     if (peek() == '.' && isdigit(peekNext()))
-//     {
-//         advance();
-
-//         while (isdigit(peek()))
-//             advance();
-//     }
-//     return std::stoi(source.substr(start, current - start));
-// }
-
 // Return the position of character c
-int Scanner::locateChar(const std::string &s, char c)
-{
+int Scanner::locateChar(const std::string &s, char c) {
     // this code was overcommented
 
     auto pos = s.find(c); // first instance of character
@@ -283,37 +250,33 @@ int Scanner::locateChar(const std::string &s, char c)
     return static_cast<int>(pos);
 }
 
-void Scanner::scanString()
-{
-    while (peek() != '"' && !atEnd())
-    {
+void Scanner::scanString() {
+    while (peek() != '"' && !atEnd()) {
         if (peek() == '\n')
             line++;
         advance();
     }
 
-    if (atEnd())
-    {
-        std::cerr << "Unfinished String" << std::endl;
-        exit(1);
+    if (atEnd()) {
+        errorReporter.storeError(line,"Unfinished String");
+        return;
     }
 
     advance();
 
-    std::string val = source.substr(start + 1, (current - 1) - start + 1).c_str();
+    std::string val = source.substr(start + 1, current - start).c_str();
+    val.erase(std::remove(val.begin(),val.end(),'"'),val.end());
     addToken(STRING, val);
 }
 
-int Scanner::lookupKeyword(const std::string &text)
-{
+int Scanner::lookupKeyword(const std::string &text) {
     auto it = keywords.find(text);
     if (it == keywords.end())
         return -1;
     return it->second; // not a keyword
 }
 
-void Scanner::identifier()
-{
+void Scanner::identifier() {
     while (isalnum(peek()))
         advance();
     addToken(IDENTIFIER);
@@ -321,15 +284,13 @@ void Scanner::identifier()
 
 // chcks if the cur postion is in the end of the src
 // returns the char at the cur po in the source.
-char Scanner::peek()
-{
+char Scanner::peek() {
     if (atEnd())
         return '\0';
     return source.at(current);
 }
 
-char Scanner::peekNext()
-{
+char Scanner::peekNext() {
     if (current + 1 >= source.length())
         return '\0';
     return source.at(current + 1);
