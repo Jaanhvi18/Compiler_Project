@@ -48,6 +48,7 @@ public:
     const std::vector<StmtPtr> statements;
 };
 
+//Why?
 class Expression : public Stmt {
 public:
     Expression(ExprPtr expression) : expression(expression) {}
@@ -61,15 +62,15 @@ public:
 
 class Function : public Stmt {
 public:
-    Function(std::shared_ptr<Token> name, std::vector<std::shared_ptr<Token>> params, std::shared_ptr<Block> body)
+    Function(TokenPtr name, std::vector<TokenPtr> params, std::shared_ptr<Block> body)
         : name(name), params(params), body(body) {}
 
     void accept(Visitor &visitor) const override {
         visitor.visitFunctionStmt(*this);
     }
 
-    const std::shared_ptr<Token> name;
-    const std::vector<std::shared_ptr<Token>> params;
+    const TokenPtr name;
+    const std::vector<TokenPtr> params;
     const std::shared_ptr<Block> body;
 };
 
@@ -100,27 +101,27 @@ public:
 
 class Return : public Stmt {
 public:
-    Return(std::shared_ptr<Token> keyword, ExprPtr value)
+    Return(TokenPtr keyword, ExprPtr value)
         : keyword(keyword), value(value) {}
 
     void accept(Visitor &visitor) const override {
         visitor.visitReturnStmt(*this);
     }
 
-    const std::shared_ptr<Token> keyword;
+    const TokenPtr keyword;
     const ExprPtr value;
 };
 
 class Var : public Stmt {
 public:
-    Var(std::shared_ptr<Token> name, ExprPtr initializer)
+    Var(TokenPtr name, ExprPtr initializer)
         : name(name), initializer(initializer) {}
 
     void accept(Visitor &visitor) const override {
         visitor.visitVarStmt(*this);
     }
 
-    const std::shared_ptr<Token> name;
+    const TokenPtr name;
     const ExprPtr initializer;
 };
 
@@ -140,14 +141,14 @@ public:
 // ClassStmt here ----> fix this 
 class ClassStmt : public Stmt {
 public:
-    ClassStmt(std::shared_ptr<Token> name, std::shared_ptr<Variable::Expr> superclass, std::vector<std::shared_ptr<Function>> methods)
+    ClassStmt(TokenPtr name, std::shared_ptr<Variable::Expr> superclass, std::vector<std::shared_ptr<Function>> methods)
         : name(name), superclass(superclass), methods(methods) {}
 
     void accept(Visitor &visitor) const override {
         visitor.visitClassStmt(*this);
     }
 
-    const std::shared_ptr<Token> name;
+    const TokenPtr name;
     const std::shared_ptr<Variable::Expr> superclass;
     const std::vector<std::shared_ptr<Function>> methods;
 };
