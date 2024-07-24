@@ -28,5 +28,5 @@ private:
 
     ExprPtr comparison();
     ExprPtr term();
-    Exprptr factor();
+    ExprPtr factor();
 };

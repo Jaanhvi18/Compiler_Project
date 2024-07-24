@@ -10,6 +10,6 @@ ExprPtr Parser::equality() {
     while (match({BANG_EQUAL, EQUAL_EQUAL})) {
         TokenPtr oprtr = previous();
         ExprPtr right = comparison();
-        expr = (new Binary(expr,oprtr,right));
+        expr = std::make_shared<Expr>(new Binary(expr,oprtr,right));
     }
 }
