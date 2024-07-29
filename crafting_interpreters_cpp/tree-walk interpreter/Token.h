@@ -39,6 +39,18 @@ public:
         return lexeme;
     }
 
+    int getType() {
+        return type;
+    }
+
+    int getIntLiteral() {
+        return std::get<int>(literal);
+    }
+
+    std::string& getStringLiteral() {
+        return std::get<std::string>(literal);
+    }
+
 private:
     int type;
     std::string lexeme;
